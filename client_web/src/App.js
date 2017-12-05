@@ -13,6 +13,7 @@ class App extends Component {
         games: [],
         status: "ready",
         filterGames: [],
+        searchGenre: "adventure",
         currentGame: {
           name: "Overcooked",
           steamId: 448510, 
@@ -63,7 +64,7 @@ class App extends Component {
   searchFunction(){
     this.state.filterGames = this.state.games;
     var searchResults = this.state.filterGames.filter((variable) => {
-      return variable.name.toLowerCase().includes(this.state.searchText.toLowerCase());
+      return variable.name.toLowerCase().includes(this.state.searchText.toLowerCase())&& variable.genre.toLowerCase().includes(this.state.searchGenre.toLowerCase());
         
     })
     //console.log (this.state.searchText)

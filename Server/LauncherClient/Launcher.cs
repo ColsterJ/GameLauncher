@@ -85,13 +85,18 @@ namespace LauncherClient
 
             if (LauncherInfo.game != null)
             {
-                if (currStartDelay > gameStartDelay)
+                if (!gc.isGameRunning(LauncherInfo.game.exe))
                 {
-                    if (!gc.isGameRunning(LauncherInfo.game.exe))
+                    if (currStartDelay > gameStartDelay)
                     {
                         currEndDelay++;
                     }
                 }
+                else
+                {
+                    currStartDelay = gameStartDelay;
+                }
+
                 if (currEndDelay > gameEndDelay)
                 {
                     gc.CheckinUser($"{baseURL}/game/checkin", computerKey);

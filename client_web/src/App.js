@@ -29,7 +29,16 @@ class App extends Component {
       this.searchFunction = this.searchFunction.bind(this);
       this.get_status = this.get_status.bind(this);
       this.setErrorValues = this.setErrorValues.bind(this); 
+      this.log_out = this.log_out.bind(this);
       this.get_status();         
+    }
+
+    log_out() {
+      axios.get(`${SETTINGS.clientUrl}api/games/checkin`).then(
+        (response) => {
+          console.log("logged out");
+        }
+      );
     }
 
     get_status() {
@@ -40,6 +49,7 @@ class App extends Component {
         }
       );
     }
+
   get_games(event) {
     axios.get(`${SETTINGS.serverUrl}game`).then(
       (response) => {
@@ -100,7 +110,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
 
-          <img src={logo} className="App-logo" alt="logo" />
+          <img src={logo} className="App-logo" alt="logo" onClick={this.log_out} />
 
           <h1 className="App-title">Welcome to LFG's Game Portal </h1>
 

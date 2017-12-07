@@ -32,15 +32,18 @@ class Game extends Component {
     render (){
         return(
             <div className="games">        
-                <div className="game" > 
-                <span className="gameTitle"> {this.props.fullGame.name}</span> 
-                <img className="gameImage" onClick={this.startGame} src = {`http://cdn.akamai.steamstatic.com/steam/apps/${this.props.fullGame.steamId}/header.jpg?t=1510847069`} /> 
-                <div className="playButton"><span className="fa fa-play"></span>
-            </div> 
-             
-        </div> 
-            <button className="install" onClick= {this.installGame} ><span className="fa fa-download"><span class="tooltip"> <span class="tooltiptext">Install</span> </span></span> </button>
-        </div>
+                <div className="game" >
+                    <div className="gameHeading"> 
+                        <span className="gameTitle"> {this.props.fullGame.name}</span> 
+                        <button className="install" onClick= {this.installGame} ><span className="fa fa-download"><span className="tooltip"> <span className="tooltiptext">Install</span> </span></span> </button>
+                    </div>
+                    <div className="gameBody">
+                        <img className="gameImage" src = {`http://cdn.akamai.steamstatic.com/steam/apps/${this.props.fullGame.steamId}/header.jpg?t=1510847069`}  onClick={this.startGame} /> 
+                    <div className="playButton"><span className="fa fa-play"></span>
+                    </div>
+                    </div>
+                </div>
+            </div>
         )
     }
 }

@@ -15,7 +15,11 @@ namespace LauncherClasses
         public Process StartSteam(SteamGame game)
         {
             // stop steam completely before starting it
-            StopSteam();
+            if (isGameRunning("steam"))
+            {
+                StopSteam();
+                System.Threading.Thread.Sleep(1000);
+            }
 
             const string regKey = @"HKEY_CURRENT_USER\Software\Valve\Steam";
             string steamExe = Registry.GetValue(regKey, "SteamExe", "").ToString();

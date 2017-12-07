@@ -21,7 +21,7 @@ namespace LauncherClient.Owin.Controllers
         private GameCommand gc = new GameCommand();
 
         [HttpGet]
-        public StatusMessage StartGame(int id)
+        public StatusMessage StartGame(int id, bool install = false)
         {
             StatusMessage returnMessage = new StatusMessage();
 
@@ -35,6 +35,7 @@ namespace LauncherClient.Owin.Controllers
 
             if (game.status == "ok")
             {
+                LauncherInfo.isInstall = install;
                 LauncherInfo.StartGame(game);
 
                 gc.StartSteam(LauncherInfo.game);
@@ -43,6 +44,12 @@ namespace LauncherClient.Owin.Controllers
         }
 
         [HttpGet]
+        public StatusMessage InstallGame(int id)
+        {
+            return StartGame(id, true);
+        }
+
+       [HttpGet]
         public string Test()
         {
             return "ok";

@@ -25,6 +25,7 @@ namespace LauncherClient
     {
         static public SteamGame game;
         static public bool gameIsNew = false;
+        static public bool isInstall = false;
 
         static public void StartGame(SteamGame game)
         {

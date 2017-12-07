@@ -22,6 +22,9 @@ namespace LauncherClient
         private int currStartDelay = 0;
         private int currEndDelay = 0;
 
+        private string baseURL;
+        private string computerKey;
+
         public Launcher()
         {
             InitializeComponent();
@@ -29,12 +32,15 @@ namespace LauncherClient
             host = new ApiHost();
             host.StartHost();
 
-            string baseURL = ConfigurationManager.AppSettings["BaseURL"];
-            string computerKey = ConfigurationManager.AppSettings["ComputerKey"];
+            Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            baseURL = configuration.AppSettings.Settings["BaseURL"].Value;
+            computerKey = configuration.AppSettings.Settings["ComputerKey"].Value;
 
             txtUrl.Text = baseURL;
             txtComputerKey.Text = computerKey;
 
+            Hide();
+            notifyIcon.Visible = true;
         }
 
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -68,15 +74,17 @@ namespace LauncherClient
                 }
                 LauncherInfo.gameIsNew = false;
                 currStartDelay = 0;
+                if (LauncherInfo.isInstall)
+                {
+                    currStartDelay = -3600;
+                    LauncherInfo.isInstall = false;
+                }
                 currEndDelay = 0;
                 // set some kind of timeout
             }
 
             if (LauncherInfo.game != null)
             {
-                string baseURL = ConfigurationManager.AppSettings["BaseURL"];
-                string computerKey = ConfigurationManager.AppSettings["ComputerKey"];
-
                 if (currStartDelay > gameStartDelay)
                 {
                     if (!gc.isGameRunning(LauncherInfo.game.exe))
@@ -102,14 +110,16 @@ namespace LauncherClient
             configuration.Save();
 
             ConfigurationManager.RefreshSection("appSettings");
+            baseURL = configuration.AppSettings.Settings["BaseURL"].Value;
+            computerKey = configuration.AppSettings.Settings["ComputerKey"].Value;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string computerKey = txtComputerKey.Text;
-            string baseUrl = txtUrl.Text;
-            SetConfigValue("ComputerKey", computerKey);
-            SetConfigValue("BaseURL", baseUrl);
+            string set_computerKey = txtComputerKey.Text;
+            string set_baseUrl = txtUrl.Text;
+            SetConfigValue("ComputerKey", set_computerKey);
+            SetConfigValue("BaseURL", set_baseUrl);
             // go get that secret key
             GameCommand gc = new GameCommand();
 
@@ -121,7 +131,7 @@ namespace LauncherClient
                 { "pass", txtPass.Text }
             };
 
-            dynamic obj = gc.GetWebResponse($"{baseUrl}/computers/getSecret", data);
+            dynamic obj = gc.GetWebResponse($"{baseURL}/computers/getSecret", data);
             if (obj.status != null && obj.status == "ok")
             {
                 string secret = obj.message;

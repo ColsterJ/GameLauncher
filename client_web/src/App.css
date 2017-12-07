@@ -66,6 +66,8 @@
 .install {
   border-radius: 5px; 
   position: relative;
+  width: 26px;
+  height: 20px;
   left: -40px;
   right: 0px;
   top: -126px;
@@ -87,6 +89,7 @@
 }
 
 .install .tooltip .tooltiptext {
+  opacity: 0;
   visibility: hidden;
   width: relative;
   background-color: ghostwhite;
@@ -97,16 +100,22 @@
   border-style: solid;
   text-align: center;
   padding: 4px 4px;
+  box-shadow: 2px 2px 2px rgba(143, 142, 142, 0.397);; 
 
   /* Position the tooltip */
   position: absolute;
   bottom: 13px;
   z-index: 2;
+  transition: visibility 1s linear .6s, opacity .3s ease-in-out .2s;
+
 }
 
 .install:hover .tooltip .tooltiptext {
   visibility: visible;
+  opacity: 1;
+  
 }
+
 
 span{
   font-size: 14px; 
@@ -140,7 +149,7 @@ span{
   background-color: #60DA7D; 
   border-radius: 5px; 
   font-family: 'Roboto Mono', monospace;
-  cursor:pointer; 
+  cursor: pointer; 
 }
 
 .sortBy {
@@ -228,8 +237,4 @@ span{
 .okButton:hover {
   cursor: pointer;
   background-color: darkgrey; 
-}
-
-.install {
-  
 }

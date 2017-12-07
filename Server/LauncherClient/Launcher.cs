@@ -39,8 +39,8 @@ namespace LauncherClient
             txtUrl.Text = baseURL;
             txtComputerKey.Text = computerKey;
 
-            Hide();
-            notifyIcon.Visible = true;
+            this.WindowState = FormWindowState.Minimized;
+
         }
 
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)

@@ -117,7 +117,7 @@
             this.Controls.Add(this.txtUrl);
             this.Controls.Add(this.button1);
             this.Name = "Launcher";
-            this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
+            this.ShowInTaskbar = false;
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.ResumeLayout(false);
             this.PerformLayout();

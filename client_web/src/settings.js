@@ -1,5 +1,5 @@
 const SETTINGS = {
-    serverUrl: "http://localhost:61016/",
+    serverUrl: "http://launcher.lfgpgh.com:8088/",
     clientUrl: "http://localhost:8099/"
 }
 

@@ -31,15 +31,15 @@ class Game extends Component {
 //if in one state, return this (all options in the render function):    
     render (){
         return(
-            <div>        
-                <div className="game" onClick={this.startGame} > 
+            <div className="games">        
+                <div className="game" > 
                 <span className="gameTitle"> {this.props.fullGame.name}</span> 
-                <img className="gameImage" src = {`http://cdn.akamai.steamstatic.com/steam/apps/${this.props.fullGame.steamId}/header.jpg?t=1510847069`} /> 
+                <img className="gameImage" onClick={this.startGame} src = {`http://cdn.akamai.steamstatic.com/steam/apps/${this.props.fullGame.steamId}/header.jpg?t=1510847069`} /> 
                 <div className="playButton"><span className="fa fa-play"></span>
             </div> 
              
         </div> 
-            <button className="install" onClick= {this.installGame} > Install </button>
+            <button className="install" onClick= {this.installGame} ><span className="fa fa-download"><span class="tooltip"> <span class="tooltiptext">Install</span> </span></span> </button>
         </div>
         )
     }

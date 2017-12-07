@@ -159,7 +159,7 @@ class App extends Component {
         <div className="App">
           <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
-            <h1 className="App-title">This computer is not connected. Please reach out to Ed. </h1>
+            <h1 className="App-title">Launcher is not connected.</h1>
           </header>
         </div>
       );

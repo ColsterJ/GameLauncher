@@ -45,7 +45,12 @@ class App extends Component {
       axios.get(`${SETTINGS.clientUrl}api/games/status`).then(
         (response) => {
           this.setState({status: response.data.status, currentGame: response.data.game});
-          setTimeout(this.get_status, 1000);
+          setTimeout(this.get_status, SETTINGS.successInterval);
+        }
+      ).catch(
+        (error) => {
+          this.setState({status: "not connected"});
+          setTimeout(this.get_status, SETTINGS.errorInterval);
         }
       );
     }
@@ -171,6 +176,9 @@ class App extends Component {
             <img src={logo} className="App-logo" alt="logo" />
             <h1 className="App-title">Launcher is not connected.</h1>
           </header>
+          <div>
+            <p>Launcher Client is not running on the local machine. Please run the launcher client to play games.</p>
+          </div>
         </div>
       );
     }

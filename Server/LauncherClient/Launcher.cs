@@ -2,13 +2,7 @@
 using LauncherClient.Owin;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace LauncherClient
@@ -29,13 +23,30 @@ namespace LauncherClient
         {
             InitializeComponent();
 
-            host = new ApiHost();
-            host.StartHost();
+            try
+            {
+                // This currently is designed to throw errors so we can
+                // see what errors are common in production
+                host = new ApiHost();
+                host.StartHost();
 
-            Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-            baseURL = configuration.AppSettings.Settings["BaseURL"].Value;
-            computerKey = configuration.AppSettings.Settings["ComputerKey"].Value;
+                Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                baseURL = configuration.AppSettings.Settings["BaseURL"].Value;
+                computerKey = configuration.AppSettings.Settings["ComputerKey"].Value;
+            }
+            catch (Exception e)
+            {
+                if (e.InnerException.Message.Contains(":8099"))
+                {
+                    MessageBox.Show("Port 8099 is already in use. Perhapse the launcher is already running, or running as another user?");
+                }
+                else
+                {
+                    MessageBox.Show(e.ToString());
+                }
+                throw(e); // this gets eaten by the startup of the app but it does STOP the app
 
+            }
             txtUrl.Text = baseURL;
             txtComputerKey.Text = computerKey;
 

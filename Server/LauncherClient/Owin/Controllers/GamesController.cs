@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Configuration;
 using System.Web.Http.Results;
+using LauncherServerClasses;
 
 namespace LauncherClient.Owin.Controllers
 {
@@ -19,6 +20,7 @@ namespace LauncherClient.Owin.Controllers
     public class GamesController : ApiController
     {
         private GameCommand gc = new GameCommand();
+        private Encryption encryption;
 
         [HttpGet]
         public StatusMessage StartGame(int id, bool install = false)
@@ -27,6 +29,8 @@ namespace LauncherClient.Owin.Controllers
 
             string baseURL = ConfigurationManager.AppSettings["BaseURL"];
             string computerKey = ConfigurationManager.AppSettings["ComputerKey"];
+            string secretKey = ConfigurationManager.AppSettings["Secret"];
+            encryption = new Encryption(secretKey);
 
             string URL = $"{baseURL}/game/checkout/{id}";
             SteamGame game = gc.GetSteamLogin(id, URL, computerKey, "");
@@ -35,6 +39,7 @@ namespace LauncherClient.Owin.Controllers
 
             if (game.status == "ok")
             {
+                game.password = encryption.Decrypt(game.password);
                 LauncherInfo.isInstall = install;
                 LauncherInfo.StartGame(game);
 

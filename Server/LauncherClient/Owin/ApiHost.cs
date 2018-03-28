@@ -1,6 +1,7 @@
 ﻿using Microsoft.Owin.Hosting;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,8 @@ namespace LauncherClient.Owin
     {
         public void StartHost()
         {
-            string baseurl = "http://localhost:8099";
+            Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+            string baseurl = configuration.AppSettings.Settings["ApiURL"].Value; ;
             WebApp.Start<Startup>(baseurl);
         }
     }

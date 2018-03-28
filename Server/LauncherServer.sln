@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LauncherClient", "LauncherC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LauncherClasses", "LauncherClasses\LauncherClasses.csproj", "{F6A4E845-16B4-4725-81DE-48C7A954C49E}"
 EndProject
-Project("{840C416C-B8F3-42BC-B0DD-F6BB14C9F8CB}") = "ClientInstaller", "ClientInstaller\ClientInstaller.aiproj", "{2496475B-15B5-4EEA-A24B-1DA9B0075810}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,12 +42,6 @@ Global
 		{F6A4E845-16B4-4725-81DE-48C7A954C49E}.DefaultBuild|Any CPU.Build.0 = Debug|Any CPU
 		{F6A4E845-16B4-4725-81DE-48C7A954C49E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6A4E845-16B4-4725-81DE-48C7A954C49E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2496475B-15B5-4EEA-A24B-1DA9B0075810}.Debug|Any CPU.ActiveCfg = DefaultBuild
-		{2496475B-15B5-4EEA-A24B-1DA9B0075810}.Debug|Any CPU.Build.0 = DefaultBuild
-		{2496475B-15B5-4EEA-A24B-1DA9B0075810}.DefaultBuild|Any CPU.ActiveCfg = DefaultBuild
-		{2496475B-15B5-4EEA-A24B-1DA9B0075810}.DefaultBuild|Any CPU.Build.0 = DefaultBuild
-		{2496475B-15B5-4EEA-A24B-1DA9B0075810}.Release|Any CPU.ActiveCfg = DefaultBuild
-		{2496475B-15B5-4EEA-A24B-1DA9B0075810}.Release|Any CPU.Build.0 = DefaultBuild
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

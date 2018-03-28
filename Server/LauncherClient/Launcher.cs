@@ -13,8 +13,8 @@ namespace LauncherClient
     {
         private ApiHost host;
         private GameCommand gc = new GameCommand();
-        private int gameStartDelay = 30; // number of grace seconds on starting a game
-        private int gameEndDelay = 5; // number of grace seconds for allowing a restart
+        private int gameStartDelay = 120; // number of grace seconds on starting a game
+        private int gameEndDelay = 15; // number of grace seconds for allowing a restart
         private int currStartDelay = 0;
         private int currEndDelay = 0;
 
@@ -53,7 +53,6 @@ namespace LauncherClient
             txtComputerKey.Text = computerKey;
 
             this.WindowState = FormWindowState.Minimized;
-
         }
 
         private void notifyIcon_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -124,7 +123,7 @@ namespace LauncherClient
         {
             Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             configuration.AppSettings.Settings[key].Value = value;
-            configuration.AppSettings.SectionInformation.ProtectSection(null);
+            //configuration.AppSettings.SectionInformation.ProtectSection(null);
             configuration.Save();
 
             ConfigurationManager.RefreshSection("appSettings");
@@ -154,9 +153,16 @@ namespace LauncherClient
             {
                 string secret = obj.message;
                 SetConfigValue("Secret", secret);
+                MessageBox.Show("Settings Saved", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtUser.Text = "";
+                txtPass.Text = "";
+            }
+            else
+            {
+                MessageBox.Show("Error getting settings","Save Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            ResetConfigMechanism();
+            // ResetConfigMechanism();
         }
 
         private void ResetConfigMechanism()

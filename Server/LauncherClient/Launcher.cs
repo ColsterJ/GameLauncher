@@ -123,7 +123,7 @@ namespace LauncherClient
         {
             Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
             configuration.AppSettings.Settings[key].Value = value;
-            //configuration.AppSettings.SectionInformation.ProtectSection(null);
+            configuration.AppSettings.SectionInformation.ProtectSection(null);
             configuration.Save();
 
             ConfigurationManager.RefreshSection("appSettings");

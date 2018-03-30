@@ -153,6 +153,16 @@ namespace LauncherServer.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public ActionResult UnlockUser(int id)
+        {
+            SteamUser steamUser = db.SteamUsers.Find(id);
+            steamUser.inUse = false;
+            steamUser.inUseBy = null;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

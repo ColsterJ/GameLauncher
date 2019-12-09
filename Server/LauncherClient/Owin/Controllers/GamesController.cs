@@ -33,7 +33,7 @@ namespace LauncherClient.Owin.Controllers
 
             // We must decrypt the secret key using the machine key
             //machineKeyEncryption = new Encryption("the machine key");
-            secretKey = MachineKeyEncryption.UnProtect(secretKey, "Secret");
+            secretKey = MachineKeyEncryption.UnProtect(secretKey, $"Secret for computer {computerKey}");
 
             // Then, we can Encrypt/Decrypt using that decrypted secret key
             encryption = new Encryption(secretKey); 

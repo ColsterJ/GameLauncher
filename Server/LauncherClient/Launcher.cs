@@ -129,7 +129,7 @@ namespace LauncherClient
             if(key == "Secret")
             {
                 //string encryptedValue = encryption.Encrypt(value);
-                string encryptedValue = MachineKeyEncryption.Protect(value, "Secret");
+                string encryptedValue = MachineKeyEncryption.Protect(value, $"Secret for computer {computerKey}");
                 value = encryptedValue;
             }
 

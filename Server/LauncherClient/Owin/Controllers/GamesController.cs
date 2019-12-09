@@ -20,7 +20,7 @@ namespace LauncherClient.Owin.Controllers
     public class GamesController : ApiController
     {
         private GameCommand gc = new GameCommand();
-        private Encryption encryption;
+        private Encryption encryption, machineKeyEncryption;
 
         [HttpGet]
         public StatusMessage StartGame(int id, bool install = false)
@@ -30,7 +30,13 @@ namespace LauncherClient.Owin.Controllers
             string baseURL = ConfigurationManager.AppSettings["BaseURL"];
             string computerKey = ConfigurationManager.AppSettings["ComputerKey"];
             string secretKey = ConfigurationManager.AppSettings["Secret"];
-            encryption = new Encryption(secretKey);
+            
+            // We must decrypt the secret key using the machine key
+            machineKeyEncryption = new Encryption("the machine key");
+            secretKey = machineKeyEncryption.Decrypt(secretKey);
+
+            // Then, we can Encrypt/Decrypt using that decrypted secret key
+            encryption = new Encryption(secretKey); 
 
             string URL = $"{baseURL}/game/checkout/{id}";
             SteamGame game = gc.GetSteamLogin(id, URL, computerKey, "");

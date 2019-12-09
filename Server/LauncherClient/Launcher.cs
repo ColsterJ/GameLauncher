@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using LauncherServerClasses;
 
 namespace LauncherClient
 {
@@ -21,6 +22,8 @@ namespace LauncherClient
         private string baseURL;
         private string computerKey;
 
+        private Encryption encryption;
+
         public Launcher()
         {
             InitializeComponent();
@@ -31,6 +34,8 @@ namespace LauncherClient
                 // see what errors are common in production
                 host = new ApiHost();
                 host.StartHost();
+
+                encryption = new Encryption("the machine key");
 
                 Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 baseURL = configuration.AppSettings.Settings["BaseURL"].Value;
@@ -122,8 +127,15 @@ namespace LauncherClient
         public void SetConfigValue(string key, string value)
         {
             Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+
+            if(key == "Secret")
+            {
+                string encryptedValue = encryption.Encrypt(value);
+                value = encryptedValue;
+            }
+
             configuration.AppSettings.Settings[key].Value = value;
-            configuration.AppSettings.SectionInformation.ProtectSection(null);
+            //configuration.AppSettings.SectionInformation.ProtectSection(null);
             configuration.Save();
 
             ConfigurationManager.RefreshSection("appSettings");

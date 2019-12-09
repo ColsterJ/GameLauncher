@@ -22,8 +22,6 @@ namespace LauncherClient
         private string baseURL;
         private string computerKey;
 
-        private Encryption encryption;
-
         public Launcher()
         {
             InitializeComponent();
@@ -35,7 +33,7 @@ namespace LauncherClient
                 host = new ApiHost();
                 host.StartHost();
 
-                encryption = new Encryption("the machine key");
+                //encryption = new Encryption("the machine key");
 
                 Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
                 baseURL = configuration.AppSettings.Settings["BaseURL"].Value;
@@ -130,7 +128,8 @@ namespace LauncherClient
 
             if(key == "Secret")
             {
-                string encryptedValue = encryption.Encrypt(value);
+                //string encryptedValue = encryption.Encrypt(value);
+                string encryptedValue = MachineKeyEncryption.Protect(value, "Secret");
                 value = encryptedValue;
             }
 

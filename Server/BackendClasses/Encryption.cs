@@ -5,9 +5,37 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using System.Web.Security;
 
 namespace LauncherServerClasses
 {
+    public static class MachineKeyEncryption
+    {
+        public static string Protect(string text, string purpose)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return string.Empty;
+            }
+
+            byte[] stream = Encoding.UTF8.GetBytes(text);
+            byte[] encodedValues = MachineKey.Protect(stream, purpose);
+            return HttpServerUtility.UrlTokenEncode(encodedValues);
+        }
+
+        public static string UnProtect(string text, string purpose)
+        {
+            if (string.IsNullOrEmpty(text))
+            {
+                return string.Empty;
+            }
+
+            byte[] stream = HttpServerUtility.UrlTokenDecode(text);
+            byte[] decodedValues = MachineKey.Unprotect(stream, purpose);
+            return Encoding.UTF8.GetString(decodedValues);
+        }
+    }
     public class Encryption
     {
         // Do not write your own encryption. Use libraries like JWT

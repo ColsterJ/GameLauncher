@@ -20,7 +20,7 @@ namespace LauncherClient.Owin.Controllers
     public class GamesController : ApiController
     {
         private GameCommand gc = new GameCommand();
-        private Encryption encryption, machineKeyEncryption;
+        private Encryption encryption;
 
         [HttpGet]
         public StatusMessage StartGame(int id, bool install = false)
@@ -30,10 +30,10 @@ namespace LauncherClient.Owin.Controllers
             string baseURL = ConfigurationManager.AppSettings["BaseURL"];
             string computerKey = ConfigurationManager.AppSettings["ComputerKey"];
             string secretKey = ConfigurationManager.AppSettings["Secret"];
-            
+
             // We must decrypt the secret key using the machine key
-            machineKeyEncryption = new Encryption("the machine key");
-            secretKey = machineKeyEncryption.Decrypt(secretKey);
+            //machineKeyEncryption = new Encryption("the machine key");
+            secretKey = MachineKeyEncryption.UnProtect(secretKey, "Secret");
 
             // Then, we can Encrypt/Decrypt using that decrypted secret key
             encryption = new Encryption(secretKey); 

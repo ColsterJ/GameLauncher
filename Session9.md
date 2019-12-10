@@ -30,7 +30,7 @@ The problem has been solved in [this commit](https://github.com/ColsterJ/GameLau
 
 - There should be checks in place if decrypting the secret with the machine key causes some kind of error.
 - There are plenty of other areas to work on, such as:
-- Documenting the process to setup the server and client
-- Explaining where the different pieces are located in the repository
-- Improving the React frontend both visually and in terms of code
-- Improving the GUI of the LauncherClient
+  - Documenting the process to setup the server and client
+  - Explaining where the different pieces are located in the repository
+  - Improving the React frontend both visually and in terms of code
+  - Improving the GUI of the LauncherClient

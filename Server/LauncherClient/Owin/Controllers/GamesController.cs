@@ -8,6 +8,7 @@ using System.Web.Http;
 using System.Configuration;
 using System.Web.Http.Results;
 using LauncherServerClasses;
+using System.Windows.Forms;
 
 namespace LauncherClient.Owin.Controllers
 {
@@ -33,7 +34,15 @@ namespace LauncherClient.Owin.Controllers
 
             // We must decrypt the secret key using the machine key
             //machineKeyEncryption = new Encryption("the machine key");
-            secretKey = MachineKeyEncryption.UnProtect(secretKey, $"Secret for computer {computerKey}");
+            try
+            {
+                secretKey = MachineKeyEncryption.UnProtect(secretKey, $"Secret for computer {computerKey}");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Error: Unable to load settings. Contact an administrator.\n\n{e.Message}");
+                throw;
+            }
 
             // Then, we can Encrypt/Decrypt using that decrypted secret key
             encryption = new Encryption(secretKey); 
